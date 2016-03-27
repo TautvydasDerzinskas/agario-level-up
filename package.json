@@ -1,0 +1,15 @@
+{
+  "name": "agariobot",
+  "version": "1.0.0",
+  "description": "Agario client modified to auto collect XP for a player account",
+  "main": "bot.js",
+  "scripts": {
+    "test": "node bot.js"
+  },
+  "keywords": [
+    "agario",
+    "bot"
+  ],
+  "author": "Tautvydas Derzinskas",
+  "license": "ISC"
+}
