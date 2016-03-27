@@ -44,7 +44,7 @@ module.exports = function(QUEST, config, client) {
 
 			var distance = getDistance(entity, BOT_BALL);
 			if (distance !== 0) {
-				var entity_type = entity.virus ? 'VIRUS' : (entity.size * 1.25 > BOT_BALL.size ? 'ENEMY' : 'FOOD');
+				var entity_type = entity.virus ? 'VIRUS' : (entity.size > BOT_BALL.size ? 'ENEMY' : 'FOOD');
 
 				// Registering close by viruses
 				if (AREA_REGISTRY[entity_type].DISTANCE > distance) {
@@ -112,9 +112,20 @@ module.exports = function(QUEST, config, client) {
 				QUEST.MOVES.DEFENCE += 1;
 			}
 			else {
-				var randomCoords = getRandomCoords();
-				client.moveTo(randomCoords.x, randomCoords.y);
-				QUEST.MOVES.RANDOM += 1;						
+				if (AREA_REGISTRY.FOOD.ENTITY) {
+					client.moveTo(AREA_REGISTRY.FOOD.ENTITY.x, AREA_REGISTRY.FOOD.ENTITY.y);
+					// Splitting power!
+					if ((AREA_REGISTRY.FOOD.ENTITY.size > 50 && BOT_BALL.size < 251 || AREA_REGISTRY.FOOD.ENTITY.size > 250 && BOT_BALL.size < 899) && (BOT_BALL.size / 2) > AREA_REGISTRY.FOOD.ENTITY.size && AREA_REGISTRY.FOOD.DISTANCE <= 200) {
+						client.split();
+						QUEST.ACTIONS.SPLITS += 1;
+					}
+					QUEST.MOVES.ATTACK += 1;
+				}
+				else {
+					var randomCoords = getRandomCoords();
+					client.moveTo(randomCoords.x, randomCoords.y);
+					QUEST.MOVES.RANDOM += 1;
+				}		
 			}
 
 		}

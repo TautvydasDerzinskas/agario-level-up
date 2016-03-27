@@ -4,12 +4,21 @@
   "description": "Agario client modified to auto collect XP for a player account",
   "main": "bot.js",
   "scripts": {
-    "test": "node bot.js"
+    "bot": "node bot.js",
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SlimDogs/agario-level-up.git"
   },
   "keywords": [
     "agario",
     "bot"
   ],
   "author": "Tautvydas Derzinskas",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+  	"agario-client": "*",
+    "electron-prebuilt": "^0.36.0"
+  }
 }
