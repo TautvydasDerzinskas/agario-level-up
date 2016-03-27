@@ -1,19 +1,28 @@
-function getDistance(cell1, cell2) {
+const BIG_BALL_SIZE = 1000;
+const SPLIT_ATTACK_DISTANCE = 710 - 200; // Less precision for bots
+const SPLIT_SIZE_RATIO = 1.25;
+
+function getDistance (cell1, cell2) {
 	return Math.sqrt(Math.pow(cell1.x - cell2.x, 2) + Math.pow(cell2.y - cell1.y, 2));
 }
-function getOppositeCoords(x, y) {
+function getOppositeCoords (x, y) {
 	return {
 		x: (0 - x),
 		y: (0 - y)
 	};
 }
-function getRandomCoords() {
-	var max = 1000,
-		min = -1000;
+function getRandomCoords () {
+	var max = 7071,
+		min = -7071;
 	return {
 		x:  Math.random() * (max - min) + min,
 		y: Math.random() * (max - min) + min
 	};
+}
+
+function compareSizes (player1, player2) {
+    return player1.size / player2.size < 1.8 &&
+		   player1.size * player1.size * SPLIT_SIZE_RATIO < player2.size * player2.size;
 }
 
 module.exports = function(QUEST, config, client) {
@@ -55,26 +64,33 @@ module.exports = function(QUEST, config, client) {
 			}
 		}
 
-		if (BOT_BALL.size < 1000) { // Small bot, defencive hunter
+		if (BOT_BALL.size < BIG_BALL_SIZE) { // Small bot, defencive hunter
 
 			// Movement if enemies exist in area - moving opposit from nearest enemy
-			if (AREA_REGISTRY.ENEMY.ENTITY && AREA_REGISTRY.ENEMY.DISTANCE < 600 && AREA_REGISTRY.ENEMY.DISTANCE > 150) {
+			if (AREA_REGISTRY.ENEMY.ENTITY && AREA_REGISTRY.ENEMY.DISTANCE < SPLIT_ATTACK_DISTANCE && AREA_REGISTRY.ENEMY.DISTANCE > 50) {
 				QUEST.MOVES.DEFENCE += 1;
 
 				// If distance to neares virus is close move there
 				if (AREA_REGISTRY.VIRUS.ENTITY && AREA_REGISTRY.VIRUS.DISTANCE < 100 && BOT_BALL.size < 130) {
 					client.moveTo(AREA_REGISTRY.VIRUS.ENTITY.x, AREA_REGISTRY.VIRUS.ENTITY.y);
-				} else {
+				}
+				else {
 					var opositeCoords = getOppositeCoords(AREA_REGISTRY.ENEMY.ENTITY.x, AREA_REGISTRY.ENEMY.ENTITY.y);
 					client.moveTo(opositeCoords.x, opositeCoords.y);
 				}
+				/*
+				if (AREA_REGISTRY.ENEMY.DISTANCE < 350) {
+					client.split();
+					QUEST.ACTIONS.SPLITS += 1;
+				}
+				*/
 			}
 
 			// No enemies - hunting time
 			else if (AREA_REGISTRY.FOOD.ENTITY) {
 				client.moveTo(AREA_REGISTRY.FOOD.ENTITY.x, AREA_REGISTRY.FOOD.ENTITY.y);
 				// Splitting power!
-				if ((AREA_REGISTRY.FOOD.ENTITY.size > 50 && BOT_BALL.size < 251 || AREA_REGISTRY.FOOD.ENTITY.size > 250 && BOT_BALL.size < 899) && (BOT_BALL.size / 2) > AREA_REGISTRY.FOOD.ENTITY.size && AREA_REGISTRY.FOOD.DISTANCE <= 200) {
+				if (compareSizes(BOT_BALL, AREA_REGISTRY.FOOD.ENTITY) && AREA_REGISTRY.FOOD.DISTANCE <= SPLIT_ATTACK_DISTANCE) {
 					client.split();
 					QUEST.ACTIONS.SPLITS += 1;
 				}
@@ -115,7 +131,7 @@ module.exports = function(QUEST, config, client) {
 				if (AREA_REGISTRY.FOOD.ENTITY) {
 					client.moveTo(AREA_REGISTRY.FOOD.ENTITY.x, AREA_REGISTRY.FOOD.ENTITY.y);
 					// Splitting power!
-					if ((AREA_REGISTRY.FOOD.ENTITY.size > 50 && BOT_BALL.size < 251 || AREA_REGISTRY.FOOD.ENTITY.size > 250 && BOT_BALL.size < 899) && (BOT_BALL.size / 2) > AREA_REGISTRY.FOOD.ENTITY.size && AREA_REGISTRY.FOOD.DISTANCE <= 200) {
+					if (compareSizes(BOT_BALL, AREA_REGISTRY.FOOD.ENTITY) && AREA_REGISTRY.FOOD.DISTANCE <= SPLIT_ATTACK_DISTANCE) {
 						client.split();
 						QUEST.ACTIONS.SPLITS += 1;
 					}

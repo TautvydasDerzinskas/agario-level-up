@@ -1,5 +1,5 @@
 
-module.exports = function(QUEST) {
+module.exports = function(QUEST, isConsole) {
 	var totalScore = 0,
 		largestBotMass = 0;
 	for (var i in QUEST.BOTS) {
@@ -31,6 +31,24 @@ module.exports = function(QUEST) {
 		QUEST.MOVES.VIRUS = 0;
 	}
 
-	process.stdout.clearLine();
-	process.stdout.write('Bots: ' + totalBots + ', Mass: ' + totalScore + ', +' + QUEST.COLLECTED_MASS_TOTAL.toFixed(0) + 'XP | Top Bot: ' + largestBotMass + ', Avg Bot: ' + avgScore + ' | Attack: ' + attackPercentage + '% (' + QUEST.ACTIONS.SPLITS + ' splits), Defence: ' + defencePercentage + '%' + (otherPercentage > 0 ? ' , Other: ' + otherPercentage +'% ' : '') + ' | Tops: ' + QUEST.MAX_BOTS_COUNT + ' Bots, ' + QUEST.MAX_MASS_COUNT + ' Mass, ' + QUEST.LARGEST_BOT_MASS + ' Bot\r');
+	if (!isConsole) {
+		global.agarioBot = {
+			botCount: totalBots,
+			totalScore: totalScore,
+			xpGained: QUEST.COLLECTED_MASS_TOTAL.toFixed(0),
+			largestBotScore: largestBotMass,
+			averageBotScore: avgScore,
+			attackPercentage: attackPercentage,
+			attackSplits: QUEST.ACTIONS.SPLITS,
+			defencePercentage: defencePercentage,
+			otherPercentage: otherPercentage,
+			topBotsCount: QUEST.MAX_BOTS_COUNT,
+			topBotsScore: QUEST.MAX_MASS_COUNT,
+			topBotScore: QUEST.LARGEST_BOT_MASS
+		};
+	}
+	else {
+		process.stdout.clearLine();
+		process.stdout.write('Bots: ' + totalBots + ', Mass: ' + totalScore + ', +' + QUEST.COLLECTED_MASS_TOTAL.toFixed(0) + 'XP | Top Bot: ' + largestBotMass + ', Avg Bot: ' + avgScore + ' | Attack: ' + attackPercentage + '% (' + QUEST.ACTIONS.SPLITS + ' splits), Defence: ' + defencePercentage + '%' + (otherPercentage > 0 ? ' , Other: ' + otherPercentage +'% ' : '') + ' | Tops: ' + QUEST.MAX_BOTS_COUNT + ' Bots, ' + QUEST.MAX_MASS_COUNT + ' Mass, ' + QUEST.LARGEST_BOT_MASS + ' Bot\r');
+	}
 };

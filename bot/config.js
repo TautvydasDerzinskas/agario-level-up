@@ -2,8 +2,8 @@ module.exports = {
 	// Config Required
 	c_user: '1682682424',
 	datr: 'k8VUVkJHHrUcacTERd33EBy2',
-	xs: '165%3A1eP1mTgl56NIzw%3A2%3A1459038719%3A3762',
-	
+	xs: '198%3AWcFgkKD5mD2tJg%3A2%3A1459121386%3A3762',
+	regions: ['EU-London'],
 	name: function() {
 		var namesList = [
 			'Jumbo',
@@ -24,9 +24,5 @@ module.exports = {
 		];
 
 		return namesList[Math.floor(Math.random()*namesList.length)];
-	},
-	
-	// Config Advanced
-	botLimit: 5000,
-	regions: ['EU-London']
+	}
 };

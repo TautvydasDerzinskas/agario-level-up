@@ -8,5 +8,13 @@
     We are using node <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>.
+
+    Bots: <script>
+ 	 var remote = require('electron').remote;
+     setInterval(function() { 
+	     console.log(remote.getGlobal('agarioBot').botCount);
+	}, 1000);
+     //remote.getGlobal('sharedObj').prop1 = 125;     
+    </script>
   </body>
 </html>
