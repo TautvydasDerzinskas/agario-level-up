@@ -1,5 +1,5 @@
 const BIG_BALL_SIZE = 1000;
-const SPLIT_ATTACK_DISTANCE = 710 - 200; // Less precision for bots
+const SPLIT_ATTACK_DISTANCE = 710 - 10; // Less precision for bots
 const SPLIT_SIZE_RATIO = 1.25;
 
 function getDistance (cell1, cell2) {
@@ -21,8 +21,7 @@ function getRandomCoords () {
 }
 
 function compareSizes (player1, player2) {
-    return player1.size / player2.size < 1.8 &&
-		   player1.size * player1.size * SPLIT_SIZE_RATIO < player2.size * player2.size;
+    return player1.size * player1.size * SPLIT_SIZE_RATIO < player2.size * player2.size;
 }
 
 module.exports = function(QUEST, config, client) {

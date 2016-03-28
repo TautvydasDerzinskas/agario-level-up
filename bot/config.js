@@ -2,7 +2,7 @@ module.exports = {
 	// Config Required
 	c_user: '1682682424',
 	datr: 'k8VUVkJHHrUcacTERd33EBy2',
-	xs: '198%3AWcFgkKD5mD2tJg%3A2%3A1459121386%3A3762',
+	xs: '130%3A5jFM-KBCORKxSA%3A2%3A1459185788%3A3762',
 	regions: ['EU-London'],
 	name: function() {
 		var namesList = [
