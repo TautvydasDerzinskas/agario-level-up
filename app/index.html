@@ -7,8 +7,8 @@
       var remote = require('electron').remote;
       var showInterval;
       function showGainStats() {
-        showInterval = setInterval(function() { 
-          jQuery('#session-stats').html('<strong>Bots connected</strong>: ' + remote.getGlobal('agarioBot').botCount);
+        showInterval = setInterval(function() {
+          jQuery('#session-stats').html('<strong>Bots connected</strong>: ' + remote.getGlobal('agarioBot').botCount + '<br /><strong>Top Bot now</strong>: ' + remote.getGlobal('agarioBot').largestBotScore + '</br ><strong>Top bot this session</strong>: ' + remote.getGlobal('agarioBot').topBotScore);
         }, 1000);
       }
       function hideGainStats() {

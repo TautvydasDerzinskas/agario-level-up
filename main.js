@@ -127,7 +127,7 @@ function createWindow () {
 
 	// and load the index.html of the app.
 	//mainWindow.loadURL('file://' + __dirname + '/app/index.html');
-	mainWindow.loadURL('https://www.facebook.com/dialog/oauth/?client_id=846372892155110&redirect_uri=http://localhost:5000&state=f12c06f46e1407c&scope=public_profile,email');
+	mainWindow.loadURL('https://www.facebook.com/dialog/oauth/?client_id=846372892155110&redirect_uri=http://localhost:1988&state=f12c06f46e1407c&scope=public_profile,email');
 	// Open the DevTools.
 	//mainWindow.webContents.openDevTools();
 
