@@ -25,12 +25,19 @@ var logFn = require('./bot/logs.js'),
 global.__base = __dirname + '/';
 global.getAgarioAccessToken = function () {
 	session.defaultSession.cookies.get({}, function(error, cookies) {
+		/*
 		const neededCookies = ['c_user', 'datr', 'xs'];
 		for (let i = 0, b = cookies.length; i < b; i++) {
 			if (neededCookies.indexOf(cookies[i].name) >= 0) {
 				account[cookies[i].name] = cookies[i].value;
+				console.log(cookies[i].name, cookies[i].value);
 			}
 		}
+		*/
+	
+		account.c_user = '100005017924184';
+		account.datr = 'k8VUVkJHHrUcacTERd33EBy2';
+		account.xs = '159%3AcdzzaODwsandgA%3A2%3A1459363957%3A3430';
 
 		// Getting Facebook Token
 		account.requestFBToken(function(tkn, info) {
@@ -127,7 +134,7 @@ function createWindow () {
 
 	// and load the index.html of the app.
 	//mainWindow.loadURL('file://' + __dirname + '/app/index.html');
-	mainWindow.loadURL('https://www.facebook.com/dialog/oauth/?client_id=846372892155110&redirect_uri=http://localhost:1988&state=f12c06f46e1407c&scope=public_profile,email');
+	mainWindow.loadURL('https://www.facebook.com/dialog/oauth/?client_id=846372892155110&redirect_uri=http://localhost:1988&scope=public_profile,email');
 	// Open the DevTools.
 	//mainWindow.webContents.openDevTools();
 
