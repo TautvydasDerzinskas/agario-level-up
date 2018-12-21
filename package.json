@@ -19,7 +19,7 @@
   "license": "ISC",
   "devDependencies": {
   	"agario-client": "*",
-    "electron-prebuilt": "^0.36.0",
+    "electron-prebuilt": "^1.4.13",
     "express": "*"
   }
 }
